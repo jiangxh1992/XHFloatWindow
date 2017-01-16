@@ -22,5 +22,6 @@
 
 @property (nonatomic, strong)UIView *rootView;
 @property (nonatomic, weak)id<UIDragButtonDelegate>buttonDelegate;
+@property (nonatomic, assign)UIInterfaceOrientation initOrientation;
 
 @end

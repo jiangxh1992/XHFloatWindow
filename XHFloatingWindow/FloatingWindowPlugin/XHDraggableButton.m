@@ -26,6 +26,13 @@ typedef NS_ENUM(NSInteger ,xh_FloatWindowDirection) {
     xh_FloatWindowBOTTOM
 };
 
+typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
+    xh_Change2Origin,
+    xh_Change2Upside,
+    xh_Change2Left,
+    xh_Change2Right
+};
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
     UITouch *touch = [touches anyObject];
     self.touchStartPosition = [touch locationInView:_rootView];
@@ -53,7 +60,9 @@ typedef NS_ENUM(NSInteger ,xh_FloatWindowDirection) {
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     CGFloat W = xh_ScreenW;
     CGFloat H = xh_ScreenH;
-    if (orientation == UIInterfaceOrientationLandscapeRight||orientation ==UIInterfaceOrientationLandscapeLeft) {
+    // (1,2->3,4 | 3,4->1,2)
+    NSInteger judge = orientation + _initOrientation;
+    if (orientation != _initOrientation && judge != 3 && judge != 7) {
         W = xh_ScreenH;
         H = xh_ScreenW;
     }
@@ -107,6 +116,73 @@ typedef NS_ENUM(NSInteger ,xh_FloatWindowDirection) {
     }
 }
 
+/**
+ *  convert to the origin coordinate
+ *
+ *  UIInterfaceOrientationPortrait           = 1
+ *  UIInterfaceOrientationPortraitUpsideDown = 2
+ *  UIInterfaceOrientationLandscapeRight     = 3
+ *  UIInterfaceOrientationLandscapeLeft      = 4
+ */
+- (CGPoint)ConvertDir:(CGPoint)p {
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    // 1. xh_Change2Origin(1->1 | 2->2 | 3->3 | 4->4)
+    if (_initOrientation == orientation) return p;
+    
+    xh_ScreenChangeOrientation change2orien = xh_Change2Origin;
+    // 2. xh_Change2Left(1->4 | 4->2 | 2->3 | 3->1)
+    // 3. xh_Change2Right(1->3 | 3->2 | 2->4 | 4->1)
+    switch (_initOrientation) {
+        case UIInterfaceOrientationPortrait:
+            if (orientation == UIInterfaceOrientationLandscapeLeft)
+                change2orien = xh_Change2Left;
+            else if(orientation == UIInterfaceOrientationLandscapeRight)
+                change2orien = xh_Change2Right;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            if (orientation == UIInterfaceOrientationLandscapeRight)
+                change2orien = xh_Change2Left;
+            else if(orientation == UIInterfaceOrientationLandscapeLeft)
+                change2orien = xh_Change2Right;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            if (orientation == UIInterfaceOrientationPortrait)
+                change2orien = xh_Change2Left;
+            else if(orientation == UIInterfaceOrientationPortraitUpsideDown)
+                change2orien = xh_Change2Right;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            if (orientation == UIInterfaceOrientationPortraitUpsideDown)
+                change2orien = xh_Change2Left;
+            else if(orientation == UIInterfaceOrientationPortrait)
+                change2orien = xh_Change2Right;
+            break;
+            
+        default:
+            break;
+    }
+    
+    // 4. xh_Change2Upside(1->2 | 2->1 | 4->3 | 3->4)
+    NSInteger isUpside = orientation + _initOrientation;
+    if (isUpside == 3 || isUpside == 7) change2orien = xh_Change2Upside;
+    
+    // covert
+    switch (change2orien) {
+        case xh_Change2Left:
+            return [self LandscapeLeft:p];
+            break;
+        case xh_Change2Right:
+            return [self LandscapeRight:p];
+            break;
+        case xh_Change2Upside:
+            return [self UpsideDown:p];
+            break;
+        default:
+            return p;
+            break;
+    }
+}
+
 - (CGPoint)UpsideDown:(CGPoint)p {
     return CGPointMake(xh_ScreenW - p.x, xh_ScreenH - p.y);
 }
@@ -117,28 +193,6 @@ typedef NS_ENUM(NSInteger ,xh_FloatWindowDirection) {
 
 - (CGPoint)LandscapeRight:(CGPoint)p {
     return CGPointMake(xh_ScreenH - p.y, p.x);
-}
-
-/**
- *  convert to the origin coordinate
- */
-- (CGPoint)ConvertDir:(CGPoint)p {
-    // 获取屏幕方向
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    switch (orientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-            return [self LandscapeLeft:p];
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            return [self LandscapeRight:p];
-            break;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            return [self UpsideDown:p];
-            break;
-        default:
-            return p;
-            break;
-    }
 }
 
 @end

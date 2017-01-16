@@ -17,7 +17,7 @@ typedef void(^CallBack)();
 @property (nonnull, nonatomic, strong) XHFloatWindowController *floatVC;
 @property (nullable, nonatomic, copy)CallBack floatWindowCallBack;
 
-- (void)xh_addWindowOnTarget: (nonnull UIViewController *)target onClick:(nullable void(^)())callback;
+- (void)xh_addWindowOnTarget: (nonnull id)target onClick:(nullable void(^)())callback;
 - (void)xh_setWindowSize:(float)size;
 - (void)xh_setHideWindow:(BOOL)hide;
 - (void)xh_setBackgroundImage:(nullable NSString *)imageName forState:(UIControlState)UIControlState;

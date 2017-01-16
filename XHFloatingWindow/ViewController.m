@@ -32,11 +32,11 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [XHFloatWindow xh_addWindowOnTarget:self onClick:^{
             
-            // do something after floatingbutton clicked...
+            // do something after floating button clicked...
             NSLog(@"Floating button clicked!!!");
         }];
     });
-    
+/*
     // 2.resize the button after 2 secs
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [XHFloatWindow xh_setWindowSize:100];
@@ -55,7 +55,7 @@
         [XHFloatWindow xh_setBackgroundImage:@"default_normal" forState:UIControlStateSelected];
         [XHFloatWindow xh_setBackgroundImage:@"default_selected" forState:UIControlStateNormal];
     });
-
+*/
 }
 
 @end

@@ -15,7 +15,7 @@
 
 @implementation XHFloatWindow
 
-+ (void)xh_addWindowOnTarget:(UIViewController *)target onClick:(void (^)())callback {
++ (void)xh_addWindowOnTarget:(id)target onClick:(void (^)())callback {
     [[XHFloatWindowSingleton Ins] xh_addWindowOnTarget:target onClick:callback];
 }
 

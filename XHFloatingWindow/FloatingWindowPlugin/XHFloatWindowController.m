@@ -43,6 +43,7 @@
     _button.imageView.contentMode = UIViewContentModeScaleAspectFill;
     _button.frame = CGRectMake(0, 0, floatWindowSize, floatWindowSize);
     _button.buttonDelegate = self;
+    _button.initOrientation = [UIApplication sharedApplication].statusBarOrientation;
     _button.imageView.alpha = 0.8;
     
     // 2.flaoting window

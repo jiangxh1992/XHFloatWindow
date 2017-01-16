@@ -552,6 +552,7 @@
 				D27FAF7E1E29D45A00FE30E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D27FAF7F1E29D45A00FE30E5 /* Build configuration list for PBXNativeTarget "XHFloatingWindowTests" */ = {
 			isa = XCConfigurationList;
@@ -560,6 +561,7 @@
 				D27FAF811E29D45A00FE30E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D27FAF821E29D45A00FE30E5 /* Build configuration list for PBXNativeTarget "XHFloatingWindowUITests" */ = {
 			isa = XCConfigurationList;
@@ -568,6 +570,7 @@
 				D27FAF841E29D45A00FE30E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
