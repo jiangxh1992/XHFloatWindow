@@ -37,7 +37,7 @@
 }
 
 - (void)xh_setBackgroundImage:(NSString *)imageName forState:(UIControlState)UIControlState {
-    [_floatVC setBackgroundImage:imageName forState:UIControlState];
+    [_floatVC resetBackgroundImage:imageName forState:UIControlState];
 }
 
 @end

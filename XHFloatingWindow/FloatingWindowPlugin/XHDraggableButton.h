@@ -23,5 +23,8 @@
 @property (nonatomic, strong)UIView *rootView;
 @property (nonatomic, weak)id<UIDragButtonDelegate>buttonDelegate;
 @property (nonatomic, assign)UIInterfaceOrientation initOrientation;
+@property (nonatomic, assign)CGAffineTransform originTransform;
+
+- (void)buttonRotate;
 
 @end

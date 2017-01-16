@@ -29,6 +29,8 @@
     self.view.frame = CGRectZero;
     // create floating window button
     [self createButton];
+    // register UIDeviceOrientationDidChangeNotification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 /**
@@ -38,15 +40,16 @@
 {
     // 1.floating button
     _button = [XHDraggableButton buttonWithType:UIButtonTypeCustom];
-    [self setBackgroundImage:@"default_normal" forState:UIControlStateNormal];
-    [self setBackgroundImage:@"default_selected" forState:UIControlStateSelected];
+    [self resetBackgroundImage:@"default_normal" forState:UIControlStateNormal];
+    [self resetBackgroundImage:@"default_selected" forState:UIControlStateSelected];
     _button.imageView.contentMode = UIViewContentModeScaleAspectFill;
     _button.frame = CGRectMake(0, 0, floatWindowSize, floatWindowSize);
     _button.buttonDelegate = self;
     _button.initOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    _button.originTransform = _button.transform;
     _button.imageView.alpha = 0.8;
     
-    // 2.flaoting window
+    // 2.floating window
     _window = [[UIWindow alloc]init];
     _window.frame = CGRectMake(0, 100, floatWindowSize, floatWindowSize);
     _window.windowLevel = UIWindowLevelAlert+1;
@@ -100,7 +103,7 @@
 /**
  * reset button background image
  */
-- (void)setBackgroundImage:(NSString *)imageName forState:(UIControlState)UIControlState {
+- (void)resetBackgroundImage:(NSString *)imageName forState:(UIControlState)UIControlState {
     UIImage *image = [UIImage imageNamed:imageName];
     switch (UIControlState) {
         case UIControlStateNormal:
@@ -114,6 +117,13 @@
             break;
     }
     [_button setBackgroundImage:image forState:UIControlState];
+}
+
+/**
+ * notification
+ */
+- (void)orientationChange:(NSNotification *)notification {
+    [_button buttonRotate];
 }
 
 @end

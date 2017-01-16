@@ -116,6 +116,29 @@ typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
     }
 }
 
+- (void)buttonRotate {
+    xh_ScreenChangeOrientation change2orien = [self screenChange];
+    switch (change2orien) {
+        case xh_Change2Origin:
+            self.transform = _originTransform;
+            break;
+        case xh_Change2Left:
+            self.transform = _originTransform;
+            self.transform = CGAffineTransformMakeRotation(-M_PI_2);
+            break;
+        case xh_Change2Right:
+            self.transform = _originTransform;
+            self.transform = CGAffineTransformMakeRotation(M_PI_2);
+            break;
+        case xh_Change2Upside:
+            self.transform = _originTransform;
+            self.transform = CGAffineTransformMakeRotation(M_PI);
+            break;
+        default:
+            break;
+    }
+}
+
 /**
  *  convert to the origin coordinate
  *
@@ -125,13 +148,38 @@ typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
  *  UIInterfaceOrientationLandscapeLeft      = 4
  */
 - (CGPoint)ConvertDir:(CGPoint)p {
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    // 1. xh_Change2Origin(1->1 | 2->2 | 3->3 | 4->4)
-    if (_initOrientation == orientation) return p;
+    xh_ScreenChangeOrientation change2orien = [self screenChange];
+    // covert
+    switch (change2orien) {
+        case xh_Change2Left:
+            return [self LandscapeLeft:p];
+            break;
+        case xh_Change2Right:
+            return [self LandscapeRight:p];
+            break;
+        case xh_Change2Upside:
+            return [self UpsideDown:p];
+            break;
+        default:
+            return p;
+            break;
+    }
+}
+
+- (xh_ScreenChangeOrientation)screenChange {
     
-    xh_ScreenChangeOrientation change2orien = xh_Change2Origin;
-    // 2. xh_Change2Left(1->4 | 4->2 | 2->3 | 3->1)
-    // 3. xh_Change2Right(1->3 | 3->2 | 2->4 | 4->1)
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    
+    // 1. xh_Change2Origin(1->1 | 2->2 | 3->3 | 4->4)
+    if (_initOrientation == orientation) return xh_Change2Origin;
+    
+    // 2. xh_Change2Upside(1->2 | 2->1 | 4->3 | 3->4)
+    NSInteger isUpside = orientation + _initOrientation;
+    if (isUpside == 3 || isUpside == 7) return xh_Change2Upside;
+    
+    // 3. xh_Change2Left(1->4 | 4->2 | 2->3 | 3->1)
+    // 4. xh_Change2Right(1->3 | 3->2 | 2->4 | 4->1)
+    xh_ScreenChangeOrientation change2orien;
     switch (_initOrientation) {
         case UIInterfaceOrientationPortrait:
             if (orientation == UIInterfaceOrientationLandscapeLeft)
@@ -161,26 +209,7 @@ typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
         default:
             break;
     }
-    
-    // 4. xh_Change2Upside(1->2 | 2->1 | 4->3 | 3->4)
-    NSInteger isUpside = orientation + _initOrientation;
-    if (isUpside == 3 || isUpside == 7) change2orien = xh_Change2Upside;
-    
-    // covert
-    switch (change2orien) {
-        case xh_Change2Left:
-            return [self LandscapeLeft:p];
-            break;
-        case xh_Change2Right:
-            return [self LandscapeRight:p];
-            break;
-        case xh_Change2Upside:
-            return [self UpsideDown:p];
-            break;
-        default:
-            return p;
-            break;
-    }
+    return change2orien;
 }
 
 - (CGPoint)UpsideDown:(CGPoint)p {
