@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D27C57351EDC694C00782FB7 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C57341EDC694C00782FB7 /* RootViewController.m */; };
 		D27FAF541E29D45900FE30E5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D27FAF531E29D45900FE30E5 /* main.m */; };
 		D27FAF571E29D45900FE30E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D27FAF561E29D45900FE30E5 /* AppDelegate.m */; };
-		D27FAF5A1E29D45900FE30E5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27FAF591E29D45900FE30E5 /* ViewController.m */; };
 		D27FAF5D1E29D45900FE30E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27FAF5B1E29D45900FE30E5 /* Main.storyboard */; };
 		D27FAF5F1E29D45900FE30E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D27FAF5E1E29D45900FE30E5 /* Assets.xcassets */; };
 		D27FAF621E29D45900FE30E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27FAF601E29D45900FE30E5 /* LaunchScreen.storyboard */; };
@@ -39,12 +39,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D27C57331EDC694C00782FB7 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		D27C57341EDC694C00782FB7 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		D27FAF4F1E29D45900FE30E5 /* XHFloatingWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XHFloatingWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D27FAF531E29D45900FE30E5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D27FAF551E29D45900FE30E5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D27FAF561E29D45900FE30E5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D27FAF581E29D45900FE30E5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D27FAF591E29D45900FE30E5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D27FAF5C1E29D45900FE30E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D27FAF5E1E29D45900FE30E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D27FAF611E29D45900FE30E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -114,10 +114,10 @@
 			isa = PBXGroup;
 			children = (
 				D27FAF861E29D54000FE30E5 /* FloatingWindowPlugin */,
+				D27C57331EDC694C00782FB7 /* RootViewController.h */,
+				D27C57341EDC694C00782FB7 /* RootViewController.m */,
 				D27FAF551E29D45900FE30E5 /* AppDelegate.h */,
 				D27FAF561E29D45900FE30E5 /* AppDelegate.m */,
-				D27FAF581E29D45900FE30E5 /* ViewController.h */,
-				D27FAF591E29D45900FE30E5 /* ViewController.m */,
 				D27FAF5B1E29D45900FE30E5 /* Main.storyboard */,
 				D27FAF5E1E29D45900FE30E5 /* Assets.xcassets */,
 				D27FAF601E29D45900FE30E5 /* LaunchScreen.storyboard */,
@@ -235,7 +235,7 @@
 				TargetAttributes = {
 					D27FAF4E1E29D45900FE30E5 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = C6G3U74T9Y;
+						DevelopmentTeam = V4SYMZQA29;
 						ProvisioningStyle = Automatic;
 					};
 					D27FAF671E29D45A00FE30E5 = {
@@ -304,8 +304,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D27FAF5A1E29D45900FE30E5 /* ViewController.m in Sources */,
 				D27FAF8C1E29DAE500FE30E5 /* XHFloatWindowController.m in Sources */,
+				D27C57351EDC694C00782FB7 /* RootViewController.m in Sources */,
 				D27FAF8F1E29DE6000FE30E5 /* XHFloatWindow.m in Sources */,
 				D27FAF571E29D45900FE30E5 /* AppDelegate.m in Sources */,
 				D27FAF541E29D45900FE30E5 /* main.m in Sources */,
@@ -459,13 +459,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = C6G3U74T9Y;
+				DEVELOPMENT_TEAM = V4SYMZQA29;
 				INFOPLIST_FILE = XHFloatingWindow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jiangxh.XHFloatingWindow;
+				PRODUCT_BUNDLE_IDENTIFIER = XHFloatingWindow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -473,13 +473,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = C6G3U74T9Y;
+				DEVELOPMENT_TEAM = V4SYMZQA29;
 				INFOPLIST_FILE = XHFloatingWindow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jiangxh.XHFloatingWindow;
+				PRODUCT_BUNDLE_IDENTIFIER = XHFloatingWindow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

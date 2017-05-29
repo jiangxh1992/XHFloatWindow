@@ -179,7 +179,7 @@ typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
     
     // 3. xh_Change2Left(1->4 | 4->2 | 2->3 | 3->1)
     // 4. xh_Change2Right(1->3 | 3->2 | 2->4 | 4->1)
-    xh_ScreenChangeOrientation change2orien;
+    xh_ScreenChangeOrientation change2orien = 0;
     switch (_initOrientation) {
         case UIInterfaceOrientationPortrait:
             if (orientation == UIInterfaceOrientationLandscapeLeft)
