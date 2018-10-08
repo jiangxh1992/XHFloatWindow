@@ -11,6 +11,9 @@
 #define xh_ScreenH [UIScreen mainScreen].bounds.size.height
 #define xh_ScreenW [UIScreen mainScreen].bounds.size.width
 
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_PAD (UI_USER_INTERFACE_IDIOM()== UIUserInterfaceIdiomPad)
+
 @interface XHDraggableButton()
 
 @property (nonatomic, assign)CGPoint touchStartPosition;
@@ -36,14 +39,14 @@ typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
     UITouch *touch = [touches anyObject];
     self.touchStartPosition = [touch locationInView:_rootView];
-    self.touchStartPosition = [self ConvertDir:_touchStartPosition];
+    if(IS_IPHONE) self.touchStartPosition = [self ConvertDir:_touchStartPosition];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
     CGPoint curPoint = [touch locationInView:_rootView];
-    curPoint = [self ConvertDir:curPoint];
+    if(IS_IPHONE) curPoint = [self ConvertDir:curPoint];
     self.superview.center = curPoint;
 }
 
@@ -56,13 +59,16 @@ typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
         [self.buttonDelegate dragButtonClicked:self];
         return;
     }
+    [self buttonAutoAdjust:curPoint];
+}
 
+-(void)buttonAutoAdjust:(CGPoint)curPoint {
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     CGFloat W = xh_ScreenW;
     CGFloat H = xh_ScreenH;
     // (1,2->3,4 | 3,4->1,2)
     NSInteger judge = orientation + _initOrientation;
-    if (orientation != _initOrientation && judge != 3 && judge != 7) {
+    if (IS_IPHONE && orientation != _initOrientation && judge != 3 && judge != 7) {
         W = xh_ScreenH;
         H = xh_ScreenW;
     }
@@ -137,6 +143,7 @@ typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
         default:
             break;
     }
+    [self buttonAutoAdjust:self.center];
 }
 
 /**
