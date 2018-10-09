@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     CGPoint curPoint = [touch locationInView:_rootView];
-    curPoint = [self ConvertDir:curPoint];
+    if(IS_IPHONE) curPoint = [self ConvertDir:curPoint];
     // if the start touch point is too close to the end point, take it as the click event and notify the click delegate
     if (pow((_touchStartPosition.x - curPoint.x),2) + pow((_touchStartPosition.y - curPoint.y),2) < 1) {
         [self.buttonDelegate dragButtonClicked:self];
@@ -74,9 +74,9 @@ typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
     }
     // distances to the four screen edges
     CGFloat left = curPoint.x;
-    CGFloat right = W - curPoint.x;
+    CGFloat right = IS_IPHONE ? (W - curPoint.x) : (xh_ScreenW - curPoint.x);
     CGFloat top = curPoint.y;
-    CGFloat bottom = H - curPoint.y;
+    CGFloat bottom = IS_IPHONE ? (H - curPoint.y) : (xh_ScreenH - curPoint.y);
     // find the direction to go
     xh_FloatWindowDirection minDir = xh_FloatWindowLEFT;
     CGFloat minDistance = left;
@@ -130,15 +130,15 @@ typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
             break;
         case xh_Change2Left:
             self.transform = _originTransform;
-            self.transform = CGAffineTransformMakeRotation(-M_PI_2);
+            self.transform = CGAffineTransformMakeRotation(-90*M_PI/180.0);
             break;
         case xh_Change2Right:
             self.transform = _originTransform;
-            self.transform = CGAffineTransformMakeRotation(M_PI_2);
+            self.transform = CGAffineTransformMakeRotation(90*M_PI/180.0);
             break;
         case xh_Change2Upside:
             self.transform = _originTransform;
-            self.transform = CGAffineTransformMakeRotation(M_PI);
+            self.transform = CGAffineTransformMakeRotation(180*M_PI/180.0);
             break;
         default:
             break;
