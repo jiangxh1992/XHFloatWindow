@@ -123,27 +123,30 @@ typedef NS_ENUM(NSInteger, xh_ScreenChangeOrientation) {
 }
 
 - (void)buttonRotate {
-    xh_ScreenChangeOrientation change2orien = [self screenChange];
-    switch (change2orien) {
-        case xh_Change2Origin:
-            self.transform = _originTransform;
-            break;
-        case xh_Change2Left:
-            self.transform = _originTransform;
-            self.transform = CGAffineTransformMakeRotation(-90*M_PI/180.0);
-            break;
-        case xh_Change2Right:
-            self.transform = _originTransform;
-            self.transform = CGAffineTransformMakeRotation(90*M_PI/180.0);
-            break;
-        case xh_Change2Upside:
-            self.transform = _originTransform;
-            self.transform = CGAffineTransformMakeRotation(180*M_PI/180.0);
-            break;
-        default:
-            break;
-    }
     [self buttonAutoAdjust:self.center];
+    
+    if(IS_IPHONE){
+        xh_ScreenChangeOrientation change2orien = [self screenChange];
+        switch (change2orien) {
+            case xh_Change2Origin:
+                self.transform = _originTransform;
+                break;
+            case xh_Change2Left:
+                self.transform = _originTransform;
+                self.transform = CGAffineTransformMakeRotation(-90*M_PI/180.0);
+                break;
+            case xh_Change2Right:
+                self.transform = _originTransform;
+                self.transform = CGAffineTransformMakeRotation(90*M_PI/180.0);
+                break;
+            case xh_Change2Upside:
+                self.transform = _originTransform;
+                self.transform = CGAffineTransformMakeRotation(180*M_PI/180.0);
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 /**
